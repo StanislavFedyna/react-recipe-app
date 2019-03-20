@@ -12,12 +12,22 @@ class Recipe extends React.Component{
     const req = await fetch(`https://cors-anywhere.herokuapp.com/https://food2fork.com/api/search?key=${API_KEY}&q=${title}`);
     const res = await req.json();
 
-    console.log(res)
+    this.setState({
+      activeRecipe: res.recipes[0]
+    });
   }
   render(){
-    return(
+    const {image_url, title, publisher} = this.state.activeRecipe;
 
-      <div>Recipe Component</div>
+    return(
+      <div class="container">
+        <div class="active-recipe">
+          <img className="active-recipe__img" src={ image_url } alt={ title }/>
+          <h3 className="active-recipe__title">{ title }</h3>
+          <h4 className="active-recipe__publisher">Publisher: <span>{ publisher }</span></h4>
+          
+        </div>
+      </div>
     )
   }
 }
